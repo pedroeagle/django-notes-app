@@ -1,9 +1,11 @@
-from django.http import HttpResponse
+from rest_framework import serializers
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import UserSerializer
 
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the users index.")
-def login(request):
-    return HttpResponse("Login")
-def signup(request):
-    return HttpResponse("Sign Up")
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
