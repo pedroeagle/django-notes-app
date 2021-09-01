@@ -4,6 +4,7 @@ from rest_framework.serializers import Serializer
 from rest_framework.views import APIView 
 from .serializers import NoteSerializer
 from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
 from user.models import User
 from note.models import Note
 
@@ -22,3 +23,12 @@ class NoteView(APIView):
         serializer = NoteSerializer(data=notes, many=True)
         serializer.is_valid()
         return Response(serializer.data)
+    def delete(self, request, note):
+        user = User().get_user(request)
+        notes = Note.objects.filter(user_id=user.id, id=note).all()
+        if not notes:
+            raise AuthenticationFailed(f'Note {note} doesn\'t exist')
+        serializer = NoteSerializer(data=notes, many=True)
+        serializer.is_valid()
+        notes.delete()
+        return Response({'message': f'The note {note} was successfully deleted.'})
