@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#x$n0#g-fdug$1o@&i7+2h^j6(jfk2ju2v+(#5asm_cva=@oxt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-notes-app-api.herokuapp.com']
+ALLOWED_HOSTS = ['django-notes-app-api.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -92,6 +92,16 @@ DATABASES = {
 
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'db',
+#         'PORT': 5432,
+#     }
+# }
 
 
 # Password validation
@@ -125,3 +135,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "user.User"
