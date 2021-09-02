@@ -4,3 +4,4 @@ djangorestframework
 PyJWT==1.7.1
 djangorestframework_simplejwt==4.5.0
 psycopg2-binary
+dj_database_url
